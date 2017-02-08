@@ -1,3 +1,11 @@
+#L'objectif de ce script python est d'effectuer un prétraitement des images avant de les utiliser dans le modèle inception v3
+#Ce prétraitement consiste à:
+## Redimenssionner toutes les images en une taille de 256*256 afin d'homogénéiser l'ensemble
+## Transformer toutes les images en niveau de gris
+## Découper les images en petits morceaux de 16*16 avec une translation de 8
+
+#Ce script n'est fonctionnel que dans les os unix ubuntu ayant Opencv installé
+
 #!/usr/bin/env python
 
 import cv2
@@ -40,7 +48,7 @@ for dossier in os.listdir(chemin):
 				if not os.path.exists(chemin_fichier_traite):
 					#chargement de l'image en niveaux de gris
 					img = cv2.imread(chemin_fichier,0)
-					#redimmenssionnement de l'image en 250*250
+					#redimmenssionnement de l'image en 256*256
 					img=cv2.resize(img,(256,256))
 					#enregistrement de l'image
 					cv2.imwrite(chemin_fichier_traite,img)
