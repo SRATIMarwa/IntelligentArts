@@ -35,18 +35,29 @@ for dossier in os.listdir(chemin):
 				print(fichier)
 				chemin_fichier=chemin_dossier+'/'+fichier
 				#Renommage de l'image traitée
-				chemin_fichier_traite=chemin_dossier_traite+'/'+nom_fichier+'_traitee'+ext_fichier
+				chemin_fichier_traite=chemin_dossier_traite+'/'+dossier+'_'+fichier
 				#Vérification que l'image n'est pas déjà traitée
 				if not os.path.exists(chemin_fichier_traite):
 					#chargement de l'image en niveaux de gris
 					img = cv2.imread(chemin_fichier,0)
 					#redimmenssionnement de l'image en 250*250
-					img=cv2.resize(img,(250,250))
+					img=cv2.resize(img,(256,256))
 					#enregistrement de l'image
 					cv2.imwrite(chemin_fichier_traite,img)
-			
-
-	
+					#Vérification que le dossier qui contiendra les morceaux de l'image traitée n'existe pas, dans ce cas on le crée
+					chemin_dossier_img_parts=chemin_dossier_traite+'/'+dossier+'_'+nom_fichier
+					print(chemin_dossier_img_parts)
+					if not os.path.exists(chemin_dossier_img_parts):
+						os.makedirs(chemin_dossier_img_parts)
+					#on parcours les colonnes de l'image avec un pas de 8
+					for j in range(0,241,8):
+						#on parcours les lignes de l'image avec un pas de 8
+						for i in range(0,241,8):
+							#on découpe le morceau dont les coordonnées du point de départ sont :(i,j) height=16 et width=16
+							img_crop=img[j:j+16,i:i+16]
+							chemin_img_crop=chemin_dossier_img_parts+'/'+dossier+'_'+nom_fichier+'_'+str(i)+'_'+str(j)+ext_fichier
+							cv2.imwrite(chemin_img_crop,img_crop)
+						
 
 
 
