@@ -5,7 +5,7 @@ sudo apt-get upgrade -y
 
 #Installing some developper tools
 echo -e "\e[32m**** Installing some developer tools ****\e[39m"
-sudo apt-get install -y build-essential cmake pkg-config
+sudo apt-get install -y build-essential cmake pkg-config unzip
 #Pour gerer les erreurs qui peuvent se produire, le script ci-dessous demande a l'utilisateur de retaper la commande, si l'executon reussi, on continu
 while [ "$?" != "0" ]
 do 
