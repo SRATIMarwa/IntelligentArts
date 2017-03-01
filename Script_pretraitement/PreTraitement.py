@@ -15,14 +15,14 @@ import os
 
 
 #chemin où stocker les images traitées
-chemin_p_traitees='/home/marwa/Photos_traitees'
+chemin_p_traitees='/home/ubuntu/Images_traitees'
 
 #Vérification que le dossier global qui contiendra les images traitées n'existe pas, dans ce cas on le crée
 if not os.path.exists(chemin_p_traitees):
 	os.makedirs(chemin_p_traitees)
 
 #Chemin où se trouve les dossiers des images
-chemin='/home/marwa/Photos/Jeux de données 1'
+chemin='/home/ubuntu/Jeux de donnees'
 
 # pour chaque dossier du chemin spécifié, on suppose ici qu'on garde les dossiers tels qu'ils sont
 for dossier in os.listdir(chemin):
@@ -57,11 +57,17 @@ for dossier in os.listdir(chemin):
 						#on parcours les lignes de l'image avec un pas de 8
 						for i in range(0,241,8):
 							#on découpe le morceau dont les coordonnées du point de départ sont :(i,j) height=16 et width=16
-							img_crop=img[j:j+16,i:i+16]
-							chemin_img_crop=chemin_dossier_traite+'/'+dossier+'_'+nom_fichier+'_'+str(i)+'_'+str(j)+ext_fichier
-							cv2.imwrite(chemin_img_crop,img_crop)
-						
-
+							img_crop_16=img[j:j+16,i:i+16]
+							chemin_img_crop_16=chemin_dossier_traite+'/'+dossier+'_'+nom_fichier+'_'+str(i)+'_'+str(j)+'_16'+ext_fichier
+							cv2.imwrite(chemin_img_crop_16,img_crop_16)
+					#on parcours les colonnes de l'image avec un pas de 16
+					for j in range(0,225,16):
+						#on parcours les lignes de l'image avec un pas de 16
+						for i in range(0,225,16):
+							#on découpe le morceau dont les coordonnées du point de départ sont :(i,j) height=32 et width=32
+							img_crop_32=img[j:j+32,i:i+32]
+							chemin_img_crop_32=chemin_dossier_traite+'/'+dossier+'_'+nom_fichier+'_'+str(i)+'_'+str(j)+'_32'+ext_fichier
+							cv2.imwrite(chemin_img_crop_32,img_crop_32)
 
 
 
